@@ -1,0 +1,7 @@
+td,
+th {
+  white-space: no-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-block: 5px;
+}
