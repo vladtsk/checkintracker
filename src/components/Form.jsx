@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Form.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBuilding,
+  faTag,
+  faCoins,
+  faCalendarDays,
+  faSquarePen,
+} from "@fortawesome/free-solid-svg-icons";
+import { MissionContext } from "../contexts/MissionContext";
 
-export default function Form({ onAddMission }) {
+export default function Form() {
   const [missionType, setMissionType] = useState("accueil");
   const [nomAppart, setNomAppart] = useState("");
   const [price, setPrice] = useState(12);
   const [date, setDate] = useState(new Date());
   const [comment, setComment] = useState("");
+  const { handleAddMission: onAddMission } = useContext(MissionContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +41,10 @@ export default function Form({ onAddMission }) {
       <h2>Ajouter une mission</h2>
 
       <div className="formField">
-        <label htmlFor="appart">Appartement</label>
+        <label htmlFor="appart">
+          <FontAwesomeIcon icon={faBuilding} /> Appartement
+        </label>
+
         <input
           id="appart"
           type="text"
@@ -42,7 +55,10 @@ export default function Form({ onAddMission }) {
 
       <div className="typePrixSection">
         <div className="formField">
-          <label htmlFor="typeMission">Type de mission</label>
+          <label htmlFor="typeMission">
+            <FontAwesomeIcon icon={faTag} /> Type de mission
+          </label>
+
           <select
             id="typeMission"
             value={missionType}
@@ -54,23 +70,27 @@ export default function Form({ onAddMission }) {
         </div>
 
         <div className="formField">
-          <label htmlFor="priceSelect">Prix</label>
+          <label htmlFor="priceSelect">
+            <FontAwesomeIcon icon={faCoins} /> Prix
+          </label>
           <select
             id="priceSelect"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
           >
-            <option value={12}>12</option>
-            <option value={15}>15</option>
-            <option value={17}>17</option>
-            <option value={20}>20</option>
-            <option value={24}>24</option>
+            <option value={12}>12€</option>
+            <option value={15}>15€</option>
+            <option value={17}>17€</option>
+            <option value={20}>20€</option>
+            <option value={24}>24€</option>
           </select>
         </div>
       </div>
 
       <div className="formField">
-        <label htmlFor="dateSelect">Date</label>
+        <label htmlFor="dateSelect">
+          <FontAwesomeIcon icon={faCalendarDays} /> Date
+        </label>
         <DatePicker
           id="dateSelect"
           selected={date}
@@ -80,7 +100,9 @@ export default function Form({ onAddMission }) {
       </div>
 
       <div className="formField">
-        <label htmlFor="comment">Commentaire</label>
+        <label htmlFor="comment">
+          <FontAwesomeIcon icon={faSquarePen} /> Commentaire
+        </label>
         <input
           id="comment"
           type="text"

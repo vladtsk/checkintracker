@@ -4,33 +4,13 @@
   padding: 0;
 }
 
-.pageHeader {
-  padding-left: 40px;
-  margin-top: 40px;
-  font-weight: bold;
-}
+
 
 .mainContainer {
   display: flex;
   background-color: #f9fafb;
   min-height: 100vh;
   margin-bottom: 20px;
-}
-
-.formContainer {
-  display: flex;
-  width: 650px;
-  background-color: #fff;
-}
-
-.formAssignmentContainer {
-  margin: 0 auto;
-  padding-top: 50px;
-}
-
-.button {
-  margin-top: 10px;
-  background-color: blanchedalmond;
 }
 
 .assignmentsSection {
