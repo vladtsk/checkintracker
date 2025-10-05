@@ -1,0 +1,35 @@
+.formField {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.formField label {
+  margin-bottom: 5px;
+}
+
+form {
+  padding-inline: 30px;
+  padding-block: 30px;
+  width: 60%;
+}
+
+form h2 {
+  padding: 0;
+  margin: 0;
+}
+
+select {
+  height: 30px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input {
+  height: 30px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+

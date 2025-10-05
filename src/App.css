@@ -4,13 +4,11 @@
   padding: 0;
 }
 
-
-
 .mainContainer {
   display: flex;
   background-color: #f9fafb;
   min-height: 100vh;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .assignmentsSection {

@@ -5,3 +5,18 @@ th {
   text-overflow: ellipsis;
   padding-block: 5px;
 }
+
+.editBtn {
+  color: #646cff;
+  font-size: 0.8em;
+}
+
+.checkBtn {
+  color: #47be4d;
+  font-size: 0.8em;
+}
+
+.deleteBtn {
+  color: #da6874;
+  font-size: 0.8em;
+}

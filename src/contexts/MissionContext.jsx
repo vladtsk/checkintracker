@@ -31,13 +31,33 @@ const initialMissions = [
 
 function MissionProvider({ children }) {
   const [missions, setMissions] = useState(initialMissions);
+  const [editMissionId, setEditMissionId] = useState(null);
 
   function handleAddMission(newMission) {
     setMissions((missions) => [...missions, newMission]);
   }
 
+  function handleDelete(missionId) {
+    setMissions((missions) => missions.filter((m) => m.id !== missionId));
+  }
+
+  function updateMission(id, updatedM) {
+    setMissions((missions) =>
+      missions.map((mission) => (mission.id == id ? updatedM : mission))
+    );
+  }
+
   return (
-    <MissionContext.Provider value={{ missions, handleAddMission }}>
+    <MissionContext.Provider
+      value={{
+        missions,
+        handleAddMission,
+        handleDelete,
+        setEditMissionId,
+        editMissionId,
+        updateMission,
+      }}
+    >
       {children}
     </MissionContext.Provider>
   );
