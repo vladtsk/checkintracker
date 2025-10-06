@@ -1,0 +1,13 @@
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+
+  padding-inline: 40px;
+  padding-top: 40px;
+}
+
+.logo {
+  margin: 0;
+
+  font-weight: bold;
+}

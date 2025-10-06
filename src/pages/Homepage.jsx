@@ -1,12 +1,12 @@
 import PageHeader from "../components/PageHeader";
-import "./Homepage.css";
+import styles from "./Homepage.module.css";
 
 export default function HomePage() {
   return (
-    <div className="mainPage">
-      <div className="pageContent">
+    <div className={styles.mainPage}>
+      <div className={styles.pageContent}>
         <PageHeader />
-        <main>
+        <main className={styles.mainSection}>
           <h1>Simplifiez la géstion de vos missions</h1>
           <h2>
             Avec l'application CheckinTracker, gérez vos missions, suivez vos

@@ -3,7 +3,7 @@ import {
   faSquareCheck,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Mission.css";
+import styles from "./Mission.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
 import { MissionContext } from "../contexts/MissionContext";
@@ -46,7 +46,7 @@ export default function Mission({ mission }) {
   return (
     <>
       {editMissionId == mission.id ? (
-        <tr className="missionEdit">
+        <tr className={styles.missionEdit}>
           <td>
             <input
               id="appart"
@@ -88,35 +88,35 @@ export default function Mission({ mission }) {
           </td>
           <td>
             <FontAwesomeIcon
-              className="checkBtn"
+              className={styles.checkBtn}
               icon={faSquareCheck}
               onClick={() => handleValidate(mission.id)}
             />
           </td>
           <td>
             <FontAwesomeIcon
-              className="deleteBtn"
+              className={styles.deleteBtn}
               icon={faTrash}
               onClick={() => handleDelete(mission.id)}
             />
           </td>
         </tr>
       ) : (
-        <tr className="mission">
+        <tr className={styles.mission}>
           <td>{mission.appartement}</td>
           <td>{mission.type}</td>
           <td>{mission.prix}</td>
           <td>{new Date(mission.date).toLocaleDateString("fr-FR")}</td>
           <td>
             <FontAwesomeIcon
-              className="editBtn"
+              className={styles.editBtn}
               icon={faPenToSquare}
               onClick={() => handleEdit(mission.id)}
             />
           </td>
           <td>
             <FontAwesomeIcon
-              className="deleteBtn"
+              className={styles.deleteBtn}
               icon={faTrash}
               onClick={() => handleDelete(mission.id)}
             />

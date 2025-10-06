@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import "./AddMission.css";
+import styles from "./AddMission.module.css";
 import SideMenu from "../components/SideMenu";
 import { MissionContext } from "../contexts/MissionContext";
 import PageHeader from "../components/PageHeader";
@@ -10,7 +10,7 @@ function AssignmentsSection() {
   const { missions } = useContext(MissionContext);
 
   return (
-    <div className="assignmentsSection">
+    <div className={styles.assignmentsSection}>
       <h3>Liste de missions</h3>
       <table>
         <thead>
@@ -33,17 +33,17 @@ function AssignmentsSection() {
 
 export default function AddMission() {
   return (
-    <>
-      <PageHeader />
-      <main className="mainContainer">
-        <SideMenu />
-        <div className="formAssignmentContainer">
-          <div className="formContainer">
+    <div className={styles.page}>
+      <main className={styles.mainContainer}>
+        <PageHeader />
+        {/*<SideMenu />*/}
+        <div className={styles.formAssignmentContainer}>
+          <div className={styles.formContainer}>
             <Form />
           </div>
           <AssignmentsSection />
         </div>
       </main>
-    </>
+    </div>
   );
 }

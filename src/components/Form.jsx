@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
-import "./Form.css";
+
+import styles from "./Form.module.css";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +13,7 @@ import {
   faSquarePen,
 } from "@fortawesome/free-solid-svg-icons";
 import { MissionContext } from "../contexts/MissionContext";
+import Button from "./Button";
 
 export default function Form() {
   const [missionType, setMissionType] = useState("accueil");
@@ -40,7 +43,7 @@ export default function Form() {
     <form onSubmit={handleSubmit}>
       <h2>Ajouter une mission</h2>
 
-      <div className="formField">
+      <div className={styles.formField}>
         <label htmlFor="appart">
           <FontAwesomeIcon icon={faBuilding} /> Appartement
         </label>
@@ -53,8 +56,8 @@ export default function Form() {
         />
       </div>
 
-      <div className="typePrixSection">
-        <div className="formField">
+      <div className={styles.typePrixSection}>
+        <div className={styles.formField}>
           <label htmlFor="typeMission">
             <FontAwesomeIcon icon={faTag} /> Type de mission
           </label>
@@ -69,7 +72,7 @@ export default function Form() {
           </select>
         </div>
 
-        <div className="formField">
+        <div className={styles.formField}>
           <label htmlFor="priceSelect">
             <FontAwesomeIcon icon={faCoins} /> Prix
           </label>
@@ -87,7 +90,7 @@ export default function Form() {
         </div>
       </div>
 
-      <div className="formField">
+      <div className={styles.formField}>
         <label htmlFor="dateSelect">
           <FontAwesomeIcon icon={faCalendarDays} /> Date
         </label>
@@ -99,7 +102,7 @@ export default function Form() {
         />
       </div>
 
-      <div className="formField">
+      <div className={styles.formField}>
         <label htmlFor="comment">
           <FontAwesomeIcon icon={faSquarePen} /> Commentaire
         </label>
@@ -111,7 +114,7 @@ export default function Form() {
         />
       </div>
 
-      <button className="button">Submit</button>
+      <Button>{"Submit"}</Button>
     </form>
   );
 }

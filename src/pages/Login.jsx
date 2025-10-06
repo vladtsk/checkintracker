@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import SideMenu from "../components/SideMenu";
-import "./Login.css";
+
+import styles from "./Login.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, error, dispatch } = useAuth();
 
   const navigate = useNavigate();
 
@@ -28,33 +30,43 @@ export default function Login() {
   return (
     <>
       <PageHeader />
-      <main className="mainContainer">
-        <SideMenu />
-        <div className="formAssignmentContainer">
-          <div className="formContainer">
-            <form onSubmit={handleSubmit}>
-              <h2>Login</h2>
-              <div className="formField">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+      <main className={styles.mainContainer}>
+        {/*<SideMenu />*/}
+
+        <div className={styles.formContainer}>
+          <form onSubmit={handleSubmit}>
+            <h2>Login</h2>
+            <div className={styles.formField}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  dispatch({ type: "error", payload: null });
+                }}
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="text"
+                id="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  dispatch({ type: "error", payload: null });
+                }}
+              />
+            </div>
+            {error && (
+              <div className={styles.formField}>
+                <p className={styles.errorMessage}>{error}</p>
               </div>
-              <div className="formField">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="text"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <button className="button">Submit</button>
-            </form>
-          </div>
+            )}
+            <Button>{"Submit"}</Button>
+          </form>
         </div>
       </main>
     </>
