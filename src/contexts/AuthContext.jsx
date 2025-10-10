@@ -41,6 +41,7 @@ function AuthProvider({ children }) {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+
         dispatch({ type: "login", payload: user });
         // ...
       })

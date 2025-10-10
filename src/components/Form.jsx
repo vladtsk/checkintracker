@@ -27,7 +27,7 @@ export default function Form() {
     e.preventDefault();
     if (nomAppart == "") return;
 
-    const newAssignment = {
+    const newMission = {
       id: Date.now(),
       type: missionType,
       appartement: nomAppart,
@@ -36,7 +36,7 @@ export default function Form() {
       date: date.toLocaleDateString("fr-FR"),
     };
 
-    onAddMission(newAssignment);
+    onAddMission(newMission);
   }
 
   return (

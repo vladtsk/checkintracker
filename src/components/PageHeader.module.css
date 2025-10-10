@@ -2,8 +2,12 @@
   display: flex;
   justify-content: space-between;
 
-  padding-inline: 40px;
-  padding-top: 40px;
+  /*padding-inline: 40px;
+  padding-top: 40px;*/
+
+  z-index: 2;
+
+  box-sizing: border-box;
 }
 
 .logo {

@@ -28,7 +28,7 @@ export default function Login() {
   );
 
   return (
-    <>
+    <div className={styles.page}>
       <PageHeader />
       <main className={styles.mainContainer}>
         {/*<SideMenu />*/}
@@ -51,7 +51,7 @@ export default function Login() {
             <div className={styles.formField}>
               <label htmlFor="password">Password</label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 value={password}
                 onChange={(e) => {
@@ -69,6 +69,6 @@ export default function Login() {
           </form>
         </div>
       </main>
-    </>
+    </div>
   );
 }

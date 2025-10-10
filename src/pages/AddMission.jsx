@@ -6,7 +6,7 @@ import PageHeader from "../components/PageHeader";
 import Mission from "../components/Mission";
 import Form from "../components/Form";
 
-function AssignmentsSection() {
+function MissionsSection() {
   const { missions } = useContext(MissionContext);
 
   return (
@@ -22,9 +22,17 @@ function AssignmentsSection() {
           </tr>
         </thead>
         <tbody>
-          {missions.map((m) => (
-            <Mission mission={m} key={m.id} />
-          ))}
+          {missions && Object.values(missions.length > 0) ? (
+            Object.values(missions).map((m) => (
+              <Mission mission={m} key={m.id} />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                Aucune mission pour le moment
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
@@ -41,7 +49,7 @@ export default function AddMission() {
           <div className={styles.formContainer}>
             <Form />
           </div>
-          <AssignmentsSection />
+          <MissionsSection />
         </div>
       </main>
     </div>

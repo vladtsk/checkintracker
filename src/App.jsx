@@ -7,17 +7,17 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <MissionProvider>
-      <BrowserRouter>
-        <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <MissionProvider>
           <Routes>
             <Route index element={<HomePage />}></Route>
             <Route path="missions" element={<AddMission />}></Route>
             <Route path="login" element={<Login />}></Route>
           </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </MissionProvider>
+        </MissionProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
