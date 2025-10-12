@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import {
   signInWithEmailAndPassword,
   auth,
   signOut,
 } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "../../firebase/firebaseConfig";
 
 const AuthContext = createContext();
 
@@ -33,6 +34,16 @@ function AuthProvider({ children }) {
     reducer,
     initialState
   );
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch({ type: "login", payload: currentUser });
+      } else dispatch({ type: "logout" });
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const navigate = useNavigate();
 

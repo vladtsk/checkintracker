@@ -1,4 +1,4 @@
-button {
+.button {
   border-radius: 8px;
   /**/
   margin-top: 1em;
@@ -6,12 +6,31 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #003064;
-  color: white;
+
   cursor: pointer;
   transition: border-color 0.25s;
 }
+/*
 button:hover {
+  background-color: #5294f8;
+  border: 1px solid transparent;
+}*/
+
+.light {
+  background-color: #5294f8;
+  color: white;
+}
+
+.light:hover {
+  background-color: #003064;
+  border: 1px solid transparent;
+}
+
+.dark {
+  background-color: #003064;
+  color: white;
+}
+.dark:hover {
   background-color: #5294f8;
   border: 1px solid transparent;
 }

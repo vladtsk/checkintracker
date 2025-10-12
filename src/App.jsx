@@ -4,6 +4,7 @@ import AddMission from "./pages/Addmission";
 import Login from "./pages/Login";
 import { MissionProvider } from "./contexts/MissionContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
         <MissionProvider>
           <Routes>
             <Route index element={<HomePage />}></Route>
-            <Route path="missions" element={<AddMission />}></Route>
+            <Route
+              path="missions"
+              element={
+                <ProtectedRoute>
+                  <AddMission />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route path="login" element={<Login />}></Route>
           </Routes>
         </MissionProvider>

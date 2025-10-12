@@ -28,8 +28,11 @@ function MissionsSection() {
             ))
           ) : (
             <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
-                Aucune mission pour le moment
+              <td
+                colSpan="4"
+                style={{ textAlign: "center", paddingTop: "20px" }}
+              >
+                Aucune mission ce mois-ci
               </td>
             </tr>
           )}
@@ -44,7 +47,7 @@ export default function AddMission() {
     <div className={styles.page}>
       <main className={styles.mainContainer}>
         <PageHeader />
-        {/*<SideMenu />*/}
+
         <div className={styles.formAssignmentContainer}>
           <div className={styles.formContainer}>
             <Form />

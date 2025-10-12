@@ -31,13 +31,15 @@ export default function Mission({ mission }) {
 
   function handleValidate() {
     const editedMission = {
-      id: mission.id,
+      //id: mission.id,
       type: missionType,
       appartement: nomAppart,
       prix: price,
       commentaire: "",
       date,
     };
+
+    console.log(editedMission);
 
     updateMission(mission.id, editedMission);
     setEditMissionId(null);

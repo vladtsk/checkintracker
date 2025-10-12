@@ -65,7 +65,7 @@ export default function Login() {
                 <p className={styles.errorMessage}>{error}</p>
               </div>
             )}
-            <Button>{"Submit"}</Button>
+            <Button type="dark">{"Submit"}</Button>
           </form>
         </div>
       </main>

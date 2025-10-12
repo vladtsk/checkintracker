@@ -33,7 +33,7 @@ export default function Form() {
       appartement: nomAppart,
       prix: price,
       commentaire: comment,
-      date: date.toLocaleDateString("fr-FR"),
+      date: date.toISOString(),
     };
 
     onAddMission(newMission);
@@ -114,7 +114,7 @@ export default function Form() {
         />
       </div>
 
-      <Button>{"Submit"}</Button>
+      <Button type="dark">{"Submit"}</Button>
     </form>
   );
 }

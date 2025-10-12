@@ -2,9 +2,10 @@ import { useState, createContext, useEffect } from "react";
 import {
   database,
   ref,
-  set,
+  update,
   onValue,
   push,
+  remove,
 } from "../../firebase/firebaseConfig";
 import { useAuth } from "./AuthContext";
 
@@ -55,12 +56,20 @@ function MissionProvider({ children }) {
   const [editMissionId, setEditMissionId] = useState(null);
 
   const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const curYear = now.getFullYear();
+  const curMonth = String(now.getMonth() + 1).padStart(2, "0");
 
-  function writeData(userId, data) {
+  function addData(userId, data) {
+    const date = new Date(data.date);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+
     const dbRef = `/users/${userId}/missions/${year}/${month}`;
-    push(ref(database, dbRef), data);
+    const dbMission = push(ref(database, dbRef), data);
+    const dbMissionId = dbMission.key;
+    console.log(dbMissionId);
+    const missionRef = `/users/${userId}/missions/${year}/${month}/${dbMissionId}`;
+    update(ref(database, missionRef), { dbMissionId });
   }
 
   /*function readData(userId, year, month) {
@@ -74,34 +83,55 @@ function MissionProvider({ children }) {
   }
 
   useEffect(() => {
-    const dbRef = `/users/${userId}/missions/${year}/${month}`;
+    const dbRef = `/users/${userId}/missions/${curYear}/${curMonth}`;
     const unsubscribe = onValue(ref(database, dbRef), (snapshot) => {
-      console.log("effect", userId);
-      console.log(snapshot.val());
-      if (snapshot.val()) setMissions(snapshot.val());
+      console.log("snap", snapshot.val());
+      setMissions(snapshot.val());
     });
 
     return () => unsubscribe();
-  }, [userId, year, month]);
+  }, [userId, curYear, curMonth]);
 
   function handleAddMission(newMission) {
-    /*setMissions((missions) => {
-      const upd = [...missions, newMission];
-      writeData(userId, upd);
-      return upd;
-    });*/
-
-    writeData(userId, newMission);
+    addData(userId, newMission);
   }
 
-  function handleDelete(missionId) {
-    setMissions((missions) => missions.filter((m) => m.id !== missionId));
+  function handleDelete(id) {
+    if (!missions || !userId) return;
+    //setMissions((missions) => missions.filter((m) => m.id !== missionId));
+
+    Object.values(missions).forEach((mission) => {
+      const date = new Date(mission.date);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+
+      if (mission.id == id) {
+        console.log(mission);
+        console.log(
+          `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`
+        );
+        const missionRef = `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`;
+        remove(ref(database, missionRef));
+      }
+    });
   }
 
   function updateMission(id, updatedM) {
-    setMissions((missions) =>
+    /*setMissions((missions) =>
       missions.map((mission) => (mission.id == id ? updatedM : mission))
-    );
+    );*/
+
+    const date = new Date(updatedM.date);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+
+    missions &&
+      Object.values(missions).map((mission) => {
+        if (mission.id == id) {
+          const missionRef = `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`;
+          update(ref(database, missionRef), { ...updatedM });
+        }
+      });
   }
 
   return (
