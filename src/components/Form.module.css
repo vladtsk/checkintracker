@@ -37,3 +37,9 @@ input {
   display: flex;
   gap: 60px;
 }
+
+.close {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}

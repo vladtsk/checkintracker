@@ -11,6 +11,7 @@ import {
   faCoins,
   faCalendarDays,
   faSquarePen,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { MissionContext } from "../contexts/MissionContext";
 import Button from "./Button";
@@ -22,6 +23,7 @@ export default function Form() {
   const [date, setDate] = useState(new Date());
   const [comment, setComment] = useState("");
   const { handleAddMission: onAddMission } = useContext(MissionContext);
+  const { formopen, setFormopen } = useContext(MissionContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,10 +39,21 @@ export default function Form() {
     };
 
     onAddMission(newMission);
+    setMissionType("accueil");
+    setNomAppart("");
+    setPrice(12);
+    setComment("");
+    setDate(new Date());
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className={styles.close}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          onClick={() => setFormopen(!formopen)}
+        />
+      </div>
       <h2>Ajouter une mission</h2>
 
       <div className={styles.formField}>

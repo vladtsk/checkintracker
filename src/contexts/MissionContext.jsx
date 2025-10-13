@@ -54,6 +54,7 @@ const initialMissions = {
 function MissionProvider({ children }) {
   const [missions, setMissions] = useState("");
   const [editMissionId, setEditMissionId] = useState(null);
+  const [formopen, setFormopen] = useState(false);
 
   const now = new Date();
   const curYear = now.getFullYear();
@@ -97,6 +98,11 @@ function MissionProvider({ children }) {
   }
 
   function handleDelete(id) {
+    const confirm = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette mission ?"
+    );
+    if (!confirm) return;
+
     if (!missions || !userId) return;
     //setMissions((missions) => missions.filter((m) => m.id !== missionId));
 
@@ -143,6 +149,8 @@ function MissionProvider({ children }) {
         setEditMissionId,
         editMissionId,
         updateMission,
+        formopen,
+        setFormopen,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 .mainPage {
-  padding: 2.5rem 5rem;
+  padding: 2rem 4rem;
   margin: 0;
 
   width: 100%;
@@ -59,3 +59,18 @@ h2 {
 }
 */
 /*rgba(166, 169, 183, 0.4)*/
+
+@media (max-width: 600px) {
+  .mainPage {
+    padding: 1rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.4em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+    font-weight: 500;
+  }
+}
