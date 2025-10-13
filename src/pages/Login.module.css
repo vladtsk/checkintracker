@@ -54,6 +54,10 @@ input {
   border-radius: 5px;
 }
 
+.btndiv {
+  margin-top: 20px;
+}
+
 @media (max-width: 600px) {
   .page {
     padding: 1rem 1.5rem;

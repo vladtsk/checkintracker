@@ -126,8 +126,9 @@ export default function Form() {
           onChange={(e) => setComment(e.target.value)}
         />
       </div>
-
-      <Button type="dark">{"Submit"}</Button>
+      <div className={styles.btndiv}>
+        <Button type="dark">{"Submit"}</Button>
+      </div>
     </form>
   );
 }

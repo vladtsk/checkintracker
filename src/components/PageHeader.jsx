@@ -7,7 +7,7 @@ export default function PageHeader({ headerType }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className={styles.pageHeader}>
+    <div className={`${styles.pageHeader} ${styles[headerType]}`}>
       <p
         className={styles.logo}
         onClick={() => {
@@ -16,11 +16,11 @@ export default function PageHeader({ headerType }) {
       >
         CheckInTracker
       </p>
-      <div>
+      <div className={styles.btndiv}>
         {user ? (
           <Button
             onClick={logout}
-            type={headerType === "homepage" ? "light" : "dark"}
+            type={headerType === "homepage" ? "light" : "header"}
           >
             {"Log out"}
           </Button>
@@ -29,7 +29,7 @@ export default function PageHeader({ headerType }) {
             onClick={() => {
               navigate("/login");
             }}
-            type={headerType === "homepage" ? "light" : "dark"}
+            type={headerType === "homepage" ? "light" : "header"}
           >
             {"Log in"}
           </Button>

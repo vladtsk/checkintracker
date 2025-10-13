@@ -1,6 +1,7 @@
 .page {
   margin: 0;
-  padding: 2.5rem;
+  /*padding: 2.5rem;*/
+  padding: 0;
   min-height: 100vh;
   min-width: 320px;
 
@@ -12,8 +13,9 @@
 .mainContainer {
   height: 100%;
   width: 100%;
+  padding: 2.5rem;
 
-  padding-bottom: 20px;
+  /* padding-bottom: 20px;*/
 }
 
 .formAssignmentContainer {
@@ -31,9 +33,15 @@
   border-radius: 10px;
 }
 
-.welcome {
+.earnings {
   font-size: 18px;
   font-weight: 600;
+}
+
+.money {
+  display: inline-block;
+  margin-right: 5px;
+  color: #ff5768;
 }
 
 .btnDiv {
@@ -41,13 +49,17 @@
   margin: 20px auto 20px auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .btnDiv button {
-  border: 2px solid #003064;
+  /*border: 2px solid #003064;*/
   border-radius: 8px;
 
-  padding: 4px 8px;
+  background-color: #003064;
+  color: white;
+
+  padding: 8px 8px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -55,7 +67,8 @@
 }
 
 .btnDiv button:hover {
-  background-color: #ebefff;
+  background-color: #1e40af;
+  border: 1px solid transparent;
 }
 
 .assignmentsSection {
@@ -65,8 +78,16 @@
 
 table {
   width: 100%;
-  border-collapse: collapse;
   text-align: left;
+  padding-inline: 5px;
+
+  border: 1px solid rgb(234, 234, 234);
+  border-radius: 6px;
+
+  overflow: hidden;
+  font-size: 0.9rem;
+
+  background-color: #fff;
 }
 
 .formContainer,
@@ -81,10 +102,14 @@ table {
   .formContainer,
   .btnDiv,
   .assignmentsSection {
-    padding: 0 1rem;
+    padding: 0;
   }
 
   .welcome {
     font-size: 16px;
+  }
+
+  .mainContainer {
+    padding: 1.2rem;
   }
 }

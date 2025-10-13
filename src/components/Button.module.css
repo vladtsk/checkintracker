@@ -1,15 +1,13 @@
 .button {
+  display: inline-block;
   border-radius: 8px;
 
-  margin-top: 1em;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
 
   cursor: pointer;
-  transition: border-color 0.25s;
-  transition: background-color 0.2s ease;
 }
 /*
 button:hover {
@@ -18,20 +16,47 @@ button:hover {
 }*/
 
 .light {
+  padding: 0.6em 1.2em;
   background-color: #5294f8;
   color: white;
 }
 
 .light:hover {
-  background-color: #003064;
+  padding: 0.6em 1.2em;
+  background-color: #5294f8;
   border: 1px solid transparent;
 }
 
+.header {
+  font-size: 12px;
+  padding: 0.6em 1.2em;
+  background-color: transparent;
+  color: white;
+  border: 1px white solid;
+}
+
+.header:hover {
+  font-size: 12px;
+  padding: 0.6em 1.2em;
+  background-color: transparent;
+  color: white;
+  border: 1px rgb(191, 194, 255) solid;
+}
+
 .dark {
+  padding: 0.6em 1.2em;
   background-color: #003064;
   color: white;
+  font-size: 12px;
+
+  transition: border-color 0.25s;
+  transition: background-color 0.2s ease;
 }
 .dark:hover {
+  padding: 0.6em 1.2em;
   background-color: #1e40af;
   border: 1px solid transparent;
+
+  transition: border-color 0.25s;
+  transition: background-color 0.2s ease;
 }
