@@ -1,6 +1,6 @@
 .pageHeader {
   margin: 0;
-  padding-inline: 20px;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,6 +37,6 @@
 
 @media (max-width: 600px) {
   .pageHeader {
-    padding-inline: 15px;
+    padding: 15px 30px;
   }
 }
