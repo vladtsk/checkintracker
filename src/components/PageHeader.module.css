@@ -1,6 +1,6 @@
 .pageHeader {
   margin: 0;
-  padding: 0;
+  padding-inline: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +23,6 @@
 .logo {
   display: inline-block;
   margin: 0;
-  padding-left: 40px;
 
   font-weight: bold;
   cursor: pointer;
@@ -34,15 +33,10 @@
   justify-content: center;
   align-items: center;
   margin-block: 10px;
-  margin-right: 40px;
 }
 
 @media (max-width: 600px) {
-  logo {
-    padding-left: 15px;
-  }
-
-  .btndiv {
-    margin-right: 15px;
+  .pageHeader {
+    padding-inline: 15px;
   }
 }
