@@ -62,7 +62,7 @@ h2 {
 
 @media (max-width: 600px) {
   .mainSection {
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 1.5rem;
   }
 
   h1 {
