@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./AddMission.module.css";
 
 import { MissionContext } from "../contexts/MissionContext";
@@ -11,10 +11,20 @@ import Button from "../components/Button";
 
 function MissionsSection() {
   const { missions } = useContext(MissionContext);
+  const [showMore, setShowMore] = useState(false);
+
+  let missionsToRender;
+  if (missions && Object.values(missions).length > 0) {
+    if (!showMore) {
+      missionsToRender = Object.values(missions).slice(0, 5);
+    } else {
+      missionsToRender = Object.values(missions);
+    }
+  }
 
   return (
     <div className={styles.assignmentsSection}>
-      <h3>Liste de missions</h3>
+      <h3>Missions de ce mois</h3>
       <table>
         <thead>
           <tr>
@@ -27,10 +37,9 @@ function MissionsSection() {
           </tr>
         </thead>
         <tbody>
-          {missions && Object.values(missions.length > 0) ? (
-            Object.values(missions).map((m) => (
-              <Mission mission={m} key={m.id} />
-            ))
+          {/*Object.values(missions)*/}
+          {missionsToRender ? (
+            missionsToRender.map((m) => <Mission mission={m} key={m.id} />)
           ) : (
             <tr>
               <td
@@ -43,6 +52,11 @@ function MissionsSection() {
           )}
         </tbody>
       </table>
+      <div className={styles.voirPlusDiv}>
+        <Button type="plus" onClick={() => setShowMore(!showMore)}>
+          {!showMore ? "Voir plus" : "Voir moins"}
+        </Button>
+      </div>
     </div>
   );
 }

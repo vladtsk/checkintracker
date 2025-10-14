@@ -60,3 +60,10 @@ button:hover {
   transition: border-color 0.25s;
   transition: background-color 0.2s ease;
 }
+
+.plus {
+  border: 1px solid gray;
+  padding: 4px 8px;
+
+  font-size: 12px;
+}
