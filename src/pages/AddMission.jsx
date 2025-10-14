@@ -16,9 +16,9 @@ function MissionsSection() {
   let missionsToRender;
   if (missions && Object.values(missions).length > 0) {
     if (!showMore) {
-      missionsToRender = Object.values(missions).slice(0, 5);
+      missionsToRender = Object.values(missions).reverse().slice(0, 5);
     } else {
-      missionsToRender = Object.values(missions);
+      missionsToRender = Object.values(missions).reverse();
     }
   }
 
@@ -43,7 +43,7 @@ function MissionsSection() {
           ) : (
             <tr>
               <td
-                colSpan="4"
+                colSpan="6"
                 style={{ textAlign: "center", paddingTop: "20px" }}
               >
                 Aucune mission ce mois-ci
