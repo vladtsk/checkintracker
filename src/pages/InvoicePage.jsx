@@ -184,10 +184,11 @@ export default function InvoicePage() {
           <div className={styles.totalValue}>{total.toFixed(2)} €</div>
         </div>
       </div>
-
-      <Button onClick={handleDownload} type="plus">
-        Télécharger en PDF
-      </Button>
+      <div className={styles.buttonContainer}>
+        <Button onClick={handleDownload} type="plus">
+          Télécharger en PDF
+        </Button>
+      </div>
     </div>
   );
 }

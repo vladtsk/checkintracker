@@ -127,15 +127,24 @@
 
 .totalValue {
   font-weight: 700;
-  text-align: right;
+  text-align: left;
   min-width: 120px;
 }
 
-/* print tweaks so "Save as PDF" looks good */
+.buttonContainer {
+  text-align: right;
+  margin-top: 30px;
+}
 @media print {
   .page {
     box-shadow: none;
     border: none;
     margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 20px;
   }
 }
