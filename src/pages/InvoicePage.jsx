@@ -122,7 +122,9 @@ export default function InvoicePage() {
             <p>
               {userData.postcode}, {userData.city}
             </p>
-            <p>{userData.siret}</p>
+            <p>
+              <b>SIRET</b>: {userData.siret}
+            </p>
           </div>
 
           <div className={styles.clientSection}>
