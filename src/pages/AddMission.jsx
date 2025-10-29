@@ -8,10 +8,13 @@ import Form from "../components/Form";
 import { faMoneyBillTrendUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 function MissionsSection() {
   const { missions } = useContext(MissionContext);
   const [showMore, setShowMore] = useState(false);
+
+  const navigate = useNavigate();
 
   let missionsToRender;
   if (missions && Object.values(missions).length > 0) {
@@ -37,7 +40,6 @@ function MissionsSection() {
           </tr>
         </thead>
         <tbody>
-          {/*Object.values(missions)*/}
           {missionsToRender ? (
             missionsToRender.map((m) => <Mission mission={m} key={m.id} />)
           ) : (
@@ -55,6 +57,9 @@ function MissionsSection() {
       <div className={styles.voirPlusDiv}>
         <Button type="plus" onClick={() => setShowMore(!showMore)}>
           {!showMore ? "Voir plus" : "Voir moins"}
+        </Button>{" "}
+        <Button type="plus" onClick={() => navigate("/invoice")}>
+          Facture
         </Button>
       </div>
     </div>

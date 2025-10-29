@@ -1,0 +1,141 @@
+.page {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 40px;
+  background: #ffffff;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 13px;
+  color: #0b1b2b;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e6e9ee;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.sender {
+  line-height: 1.15;
+}
+
+.companyName {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.clientSection {
+  text-align: right;
+  min-width: 180px;
+}
+
+.dateRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dateLabel {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.dateValue {
+  font-weight: 600;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: right;
+  margin: 10px 0 18px;
+}
+
+.section {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.client {
+  width: 100%;
+}
+
+.clientName {
+  margin-bottom: 6px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  border: 1px solid #d1d5db;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-left: 1px solid #d1d5db;
+  border-top: 1px solid #d1d5db;
+  vertical-align: middle;
+}
+
+.table thead th {
+  background: #f2f2f2;
+  font-weight: 700;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(even) td {
+  background: #fff;
+}
+
+.colDesc {
+  width: 50%;
+}
+.colQty {
+  width: 10%;
+  text-align: center;
+}
+.colUnit {
+  width: 20%;
+  text-align: right;
+}
+.colTotal {
+  width: 20%;
+  text-align: right;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.totalLabel {
+  font-weight: 700;
+  text-align: right;
+  width: 150px;
+}
+
+.totalValue {
+  font-weight: 700;
+  text-align: right;
+  min-width: 120px;
+}
+
+/* print tweaks so "Save as PDF" looks good */
+@media print {
+  .page {
+    box-shadow: none;
+    border: none;
+    margin: 0;
+  }
+}

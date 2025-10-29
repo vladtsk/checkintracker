@@ -19,7 +19,7 @@ import Button from "./Button";
 export default function Form() {
   const [missionType, setMissionType] = useState("accueil");
   const [nomAppart, setNomAppart] = useState("");
-  const [price, setPrice] = useState(12);
+  const [price, setPrice] = useState("12");
   const [date, setDate] = useState(new Date());
   const [comment, setComment] = useState("");
   const { handleAddMission: onAddMission } = useContext(MissionContext);
@@ -33,7 +33,7 @@ export default function Form() {
       id: Date.now(),
       type: missionType,
       appartement: nomAppart,
-      prix: price,
+      prix: Number(price),
       commentaire: comment,
       date: date.toISOString(),
     };
@@ -41,7 +41,7 @@ export default function Form() {
     onAddMission(newMission);
     setMissionType("accueil");
     setNomAppart("");
-    setPrice(12);
+    setPrice("12");
     setComment("");
     setDate(new Date());
   }
@@ -82,6 +82,7 @@ export default function Form() {
           >
             <option value="accueil">accueil</option>
             <option value="mission">mission</option>
+            <option value="forfait">forfait mobile</option>
           </select>
         </div>
 
@@ -89,7 +90,26 @@ export default function Form() {
           <label htmlFor="priceSelect">
             <FontAwesomeIcon icon={faCoins} /> Prix
           </label>
-          <select
+
+          <input
+            id="priceSelect"
+            type="text"
+            list="priceOptions"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Select or type"
+            min="0"
+            step="0.01"
+          />
+          <datalist id="priceOptions">
+            <option value="12">12€</option>
+            <option value="15">15€</option>
+            <option value="17">17€</option>
+            <option value="20">20€</option>
+            <option value="24">24€</option>
+          </datalist>
+
+          {/*<select
             id="priceSelect"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
@@ -99,7 +119,7 @@ export default function Form() {
             <option value={17}>17€</option>
             <option value={20}>20€</option>
             <option value={24}>24€</option>
-          </select>
+          </select>*/}
         </div>
       </div>
 

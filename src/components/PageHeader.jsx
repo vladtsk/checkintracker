@@ -18,12 +18,24 @@ export default function PageHeader({ headerType }) {
       </p>
       <div className={styles.btndiv}>
         {user ? (
-          <Button
-            onClick={logout}
-            type={headerType === "homepage" ? "light" : "header"}
-          >
-            {"Log out"}
-          </Button>
+          <div className={styles.logoutDiv}>
+            <Button
+              onClick={logout}
+              type={headerType === "homepage" ? "light" : "header"}
+            >
+              {"Log out"}
+            </Button>
+            {headerType !== "homepage" && (
+              <div
+                className={styles.userIcon}
+                onClick={() => {
+                  navigate("/user");
+                }}
+              >
+                V
+              </div>
+            )}
+          </div>
         ) : (
           <Button
             onClick={() => {

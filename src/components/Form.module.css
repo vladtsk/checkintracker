@@ -33,9 +33,18 @@ input {
   border-radius: 5px;
 }
 
+#priceSelect {
+  max-width: 80px;
+}
+
+.typePrixSection .formField:last-child {
+  max-width: 140px;
+}
+
 .typePrixSection {
   display: flex;
-  gap: 60px;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .btndiv {
@@ -53,5 +62,19 @@ input {
     padding-inline: 15px;
     padding-block: 15px;
     width: 80%;
+  }
+
+  .typePrixSection {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #priceSelect {
+    max-width: 100%;
+  }
+
+  .formField label {
+    font-size: 14px;
+    white-space: nowrap;
   }
 }

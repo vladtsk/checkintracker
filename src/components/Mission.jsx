@@ -65,6 +65,7 @@ export default function Mission({ mission }) {
             >
               <option value="accueil">accueil</option>
               <option value="mission">mission</option>
+              <option value="forfait">forfait mobile</option>
             </select>
           </td>
           <td>

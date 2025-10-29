@@ -3,13 +3,25 @@ import {
   signInWithEmailAndPassword,
   auth,
   signOut,
+  database,
+  ref,
+  update,
+  push,
+  remove,
+  onValue,
 } from "../../firebase/firebaseConfig";
+
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "../../firebase/firebaseConfig";
 
 const AuthContext = createContext();
 
-const initialState = { user: null, isAuthenticated: false, error: null };
+const initialState = {
+  user: null,
+  isAuthenticated: false,
+  error: null,
+  userData: {},
+};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -21,7 +33,16 @@ function reducer(state, action) {
         error: null,
       };
     case "logout":
-      return { ...state, user: null, isAuthenticated: false, error: null };
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        error: null,
+        userData: {},
+      };
+    case "setUserData":
+      return { ...state, userData: action.payload };
+
     case "error":
       return { ...state, error: action.payload };
     default:
@@ -30,7 +51,7 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated, error }, dispatch] = useReducer(
+  const [{ user, isAuthenticated, error, userData }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -44,6 +65,17 @@ function AuthProvider({ children }) {
 
     return () => unsubscribe();
   }, []);
+
+  // Get userInfo from DB
+  useEffect(() => {
+    if (!user || !user.uid) return;
+    const dbRef = `/users/${user.uid}/userdata`;
+    const unsubscribe = onValue(ref(database, dbRef), (snapshot) => {
+      console.log("userData", snapshot.val());
+      dispatch({ type: "setUserData", payload: snapshot.val() });
+    });
+    return () => unsubscribe();
+  }, [user]);
 
   const navigate = useNavigate();
 
@@ -93,9 +125,25 @@ function AuthProvider({ children }) {
     dispatch({ type: "logout" });
   }
 
+  function addUserDataToDb(data) {
+    if (!user) return;
+
+    const dbRef = `/users/${user.uid}/userdata`;
+    update(ref(database, dbRef), data);
+  }
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, logout, error, dispatch }}
+      value={{
+        user,
+        isAuthenticated,
+        login,
+        logout,
+        error,
+        dispatch,
+        addUserDataToDb,
+        userData,
+      }}
     >
       {children}
     </AuthContext.Provider>

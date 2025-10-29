@@ -6,6 +6,8 @@ import { MissionProvider } from "./contexts/MissionContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import AddMission from "./pages/AddMission";
+import UserInfo from "./pages/UserInfo";
+import InvoicePage from "./pages/InvoicePage";
 
 function App() {
   return (
@@ -20,6 +22,22 @@ function App() {
                 <ProtectedRoute>
                   <AddMission />
                 </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="user"
+              element={
+                //<ProtectedRoute>
+                <UserInfo />
+                //</ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="invoice"
+              element={
+                //<ProtectedRoute>
+                <InvoicePage />
+                //</ProtectedRoute>
               }
             ></Route>
             <Route path="login" element={<Login />}></Route>

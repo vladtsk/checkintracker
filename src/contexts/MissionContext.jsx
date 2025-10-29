@@ -68,7 +68,7 @@ function MissionProvider({ children }) {
     const dbRef = `/users/${userId}/missions/${year}/${month}`;
     const dbMission = push(ref(database, dbRef), data);
     const dbMissionId = dbMission.key;
-    console.log(dbMissionId);
+
     const missionRef = `/users/${userId}/missions/${year}/${month}/${dbMissionId}`;
     update(ref(database, missionRef), { dbMissionId });
   }
@@ -80,7 +80,6 @@ function MissionProvider({ children }) {
   let userId;
   if (user && user.uid) {
     userId = user.uid;
-    console.log(userId);
   }
 
   useEffect(() => {
