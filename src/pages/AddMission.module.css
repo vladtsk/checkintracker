@@ -1,6 +1,5 @@
 .page {
   margin: 0;
-  /*padding: 2.5rem;*/
   padding: 0;
   min-height: 100vh;
   min-width: 320px;
@@ -31,6 +30,13 @@
   margin-inline: auto;
   background-color: #fff;
   border-radius: 10px;
+}
+
+.monthNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
 }
 
 .earnings {

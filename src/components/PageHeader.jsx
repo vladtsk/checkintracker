@@ -6,6 +6,9 @@ import styles from "./PageHeader.module.css";
 export default function PageHeader({ headerType }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const { userData } = useAuth();
+
   return (
     <div className={`${styles.pageHeader} ${styles[headerType]}`}>
       <p
@@ -32,7 +35,9 @@ export default function PageHeader({ headerType }) {
                   navigate("/user");
                 }}
               >
-                V
+                {userData && userData.name
+                  ? userData.name.charAt(0).toUpperCase()
+                  : "U"}
               </div>
             )}
           </div>

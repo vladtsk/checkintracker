@@ -10,13 +10,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-function MissionsSection() {
+function MissionsSection({
+  selectedMonth,
+  selectedYear,
+  setSelectedMonth,
+  setSelectedYear,
+}) {
   const { missions } = useContext(MissionContext);
   const [showMore, setShowMore] = useState(false);
 
   const navigate = useNavigate();
 
   let missionsToRender;
+
+  if (missions) {
+    // Access missions[selectedYear][selectedMonth]
+    const yearData = missions[selectedYear];
+    const monthData = yearData
+      ? yearData[String(selectedMonth).padStart(2, "0")]
+      : null;
+
+    if (monthData) {
+      const allMissions = Object.values(monthData);
+      missionsToRender = showMore
+        ? allMissions.reverse()
+        : allMissions.reverse().slice(0, 5);
+    }
+  }
+  /*
   if (missions && Object.values(missions).length > 0) {
     if (!showMore) {
       missionsToRender = Object.values(missions).reverse().slice(0, 5);
@@ -24,10 +45,65 @@ function MissionsSection() {
       missionsToRender = Object.values(missions).reverse();
     }
   }
+*/
+  const now = new Date();
+  const curYear = now.getFullYear();
+  //const curMonth = String(now.getMonth() + 1).padStart(2, "0");
+
+  const monthNames = [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre",
+  ];
+  const selectedMonthName = monthNames[selectedMonth - 1];
+  const prefix =
+    selectedMonthName === "avril" ||
+    selectedMonthName === "août" ||
+    selectedMonthName === "octobre"
+      ? "d'"
+      : "de ";
+
+  const handlePrevMonth = () => {
+    if (selectedMonth === 1) {
+      setSelectedMonth(12);
+      setSelectedYear((prev) => prev - 1);
+    } else {
+      setSelectedMonth((prev) => prev - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (selectedMonth === 12) {
+      setSelectedMonth(1);
+      setSelectedYear((prev) => prev + 1);
+    } else {
+      setSelectedMonth((prev) => prev + 1);
+    }
+  };
 
   return (
     <div className={styles.assignmentsSection}>
-      <h3>Missions de ce mois</h3>
+      <h3>
+        Missions {prefix}
+        {selectedMonthName} {selectedYear}
+      </h3>
+      <div className={styles.monthNavigation}>
+        <div className={styles.previous} onClick={handlePrevMonth}>
+          ← Mois précédent{" "}
+        </div>
+        <div className={styles.next} onClick={handleNextMonth}>
+          Mois suivant →
+        </div>
+      </div>
       <table>
         <thead>
           <tr>
@@ -58,7 +134,16 @@ function MissionsSection() {
         <Button type="plus" onClick={() => setShowMore(!showMore)}>
           {!showMore ? "Voir plus" : "Voir moins"}
         </Button>{" "}
-        <Button type="plus" onClick={() => navigate("/invoice")}>
+        <Button
+          type="plus"
+          onClick={() =>
+            navigate(
+              `/invoice?year=${selectedYear}&month=${String(
+                selectedMonth
+              ).padStart(2, "0")}`
+            )
+          }
+        >
           Facture
         </Button>
       </div>
@@ -67,12 +152,28 @@ function MissionsSection() {
 }
 
 export default function AddMission() {
+  const now = new Date();
+  const [selectedYear, setSelectedYear] = useState(now.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(now.getMonth() + 1);
   const { formopen, setFormopen } = useContext(MissionContext);
   const { missions } = useContext(MissionContext);
 
   let total = 0;
-  if (missions)
-    total = Object.values(missions).reduce((acc, cur) => acc + cur.prix, 0);
+  /* if (missions)
+    total = Object.values(missions).reduce((acc, cur) => acc + cur.prix, 0);*/
+  if (missions) {
+    const yearData = missions[selectedYear];
+    const monthData = yearData
+      ? yearData[String(selectedMonth).padStart(2, "0")]
+      : null;
+
+    if (monthData) {
+      total = Object.values(monthData).reduce(
+        (acc, cur) => acc + (cur.prix || 0),
+        0
+      );
+    }
+  }
 
   return (
     <div className={styles.page}>
@@ -85,7 +186,7 @@ export default function AddMission() {
                 icon={faMoneyBillTrendUp}
                 className={styles.money}
               />
-              Ce mois, tu as gagné {total}€
+              Ce mois-ci, tu as gagné {total}€
             </div>
             {!formopen && (
               <Button onClick={() => setFormopen(!formopen)}>
@@ -96,7 +197,12 @@ export default function AddMission() {
           </div>
           <div className={styles.formContainer}>{formopen && <Form />}</div>
 
-          <MissionsSection />
+          <MissionsSection
+            selectedMonth={selectedMonth}
+            selectedYear={selectedYear}
+            setSelectedMonth={setSelectedMonth}
+            setSelectedYear={setSelectedYear}
+          />
         </div>
       </main>
     </div>

@@ -30,11 +30,16 @@ export default function Mission({ mission }) {
   }
 
   function handleValidate() {
+    if (nomAppart === "") {
+      setEditMissionId(null);
+      return;
+    }
+
     const editedMission = {
       //id: mission.id,
       type: missionType,
       appartement: nomAppart,
-      prix: price,
+      prix: Number(price),
       commentaire: "",
       date,
     };
@@ -69,6 +74,24 @@ export default function Mission({ mission }) {
             </select>
           </td>
           <td>
+            <input
+              id="priceSelect"
+              type="text"
+              list="priceOptions"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Select or type"
+              min="0"
+              step="0.01"
+            />
+            <datalist id="priceOptions">
+              <option value="12">12€</option>
+              <option value="15">15€</option>
+              <option value="17">17€</option>
+              <option value="20">20€</option>
+              <option value="24">24€</option>
+            </datalist>
+            {/* 
             <select
               id="priceSelect"
               value={price}
@@ -80,6 +103,7 @@ export default function Mission({ mission }) {
               <option value={20}>20€</option>
               <option value={24}>24€</option>
             </select>
+            */}
           </td>
           <td>
             <DatePicker

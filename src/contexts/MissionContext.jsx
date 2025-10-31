@@ -10,46 +10,6 @@ import {
 import { useAuth } from "./AuthContext";
 
 const MissionContext = createContext();
-/*
-const initialMissions = {
-  2025: {
-    10: {
-      "01": {
-        id1: {
-          type: "accueil",
-          appartement: "Peak",
-          prix: 12,
-          commentaire: "",
-          date: "01/10/2025",
-        },
-        id2: {
-          type: "accueil",
-          appartement: "House",
-          prix: 12,
-          commentaire: "",
-          date: "01/10/2025",
-        },
-      },
-
-      "02": {
-        id3: {
-          type: "accueil",
-          appartement: "Ricci",
-          prix: 12,
-          commentaire: "",
-          date: "03/10/2025",
-        },
-        id4: {
-          type: "mission",
-          appartement: "Opéra Muse",
-          prix: 20,
-          commentaire: "21h",
-          date: "04/10/2025",
-        },
-      },
-    },
-  },
-};*/
 
 function MissionProvider({ children }) {
   const [missions, setMissions] = useState("");
@@ -83,9 +43,10 @@ function MissionProvider({ children }) {
   }
 
   useEffect(() => {
-    const dbRef = `/users/${userId}/missions/${curYear}/${curMonth}`;
+    /*const dbRef = `/users/${userId}/missions/${curYear}/${curMonth}`;*/
+    const dbRef = `/users/${userId}/missions`;
     const unsubscribe = onValue(ref(database, dbRef), (snapshot) => {
-      console.log("snap", snapshot.val());
+      console.log("all missions", snapshot.val());
       setMissions(snapshot.val());
     });
 

@@ -6,30 +6,46 @@ import Button from "../components/Button";
 
 import { useAuth } from "../contexts/AuthContext";
 import { MissionContext } from "../contexts/MissionContext";
+import PageHeader from "../components/PageHeader";
+import { useSearchParams } from "react-router-dom";
 
 export default function InvoicePage() {
   const { userData } = useAuth();
   const { missions } = useContext(MissionContext);
-  console.log(missions);
-  const missions12Count = Object.values(missions).filter(
-    (m) => m.prix === 12
-  ).length;
-  const missions17Count = Object.values(missions).filter(
-    (m) => m.prix === 17
-  ).length;
-  const missions20Count = Object.values(missions).filter(
-    (m) => m.prix === 20
-  ).length;
 
-  const autres = Object.values(missions).filter(
+  const [searchParams] = useSearchParams();
+  const selectedYear =
+    Number(searchParams.get("year")) || new Date().getFullYear();
+  const selectedMonth = String(
+    searchParams.get("month") || new Date().getMonth() + 1
+  ).padStart(2, "0");
+
+  const now = new Date();
+
+  let monthMissions = [];
+  if (missions) {
+    const yearData = missions[selectedYear];
+    const monthData = yearData ? yearData[selectedMonth] : null;
+    if (monthData) {
+      monthMissions = Object.values(monthData);
+    }
+  }
+
+  console.log("monthMissions: ", monthMissions);
+
+  const missions12Count = monthMissions.filter((m) => m.prix === 12).length;
+  const missions17Count = monthMissions.filter((m) => m.prix === 17).length;
+  const missions20Count = monthMissions.filter((m) => m.prix === 20).length;
+
+  const autres = monthMissions.filter(
     (m) => m.prix !== 12 && m.prix !== 17 && m.prix !== 20
   );
   const autreCount = autres.length;
   const autreTotal = autres.reduce((acc, cur) => acc + cur.prix, 0);
 
-  const total = Object.values(missions).reduce((acc, cur) => acc + cur.prix, 0);
+  const total = monthMissions.reduce((acc, cur) => acc + cur.prix, 0);
 
-  const depassement = Object.values(missions).find((m) => m.type === "forfait");
+  const depassement = monthMissions.find((m) => m.type === "forfait");
   const depassementAmount = depassement ? depassement.prix : 0;
   const items = [
     {
@@ -59,24 +75,6 @@ export default function InvoicePage() {
       unitPrice: depassementAmount,
     },
   ];
-  console.log(missions12Count, missions17Count, missions20Count, autreCount);
-
-  const testInvoice = {
-    id: "2025****",
-    name: "John Doe",
-    surname: "Doe",
-    address: "123 Rue Exemple",
-    postcode: "75001",
-    city: "Paris",
-    siret: "12345678901234",
-    date: "28/10/2025",
-    dueDate: "28/11/2025",
-    items: [
-      { description: "Produit A", quantity: 2, unitPrice: 50 },
-      { description: "Produit B", quantity: 1, unitPrice: 100 },
-    ],
-    total: 200,
-  };
 
   const handleDownload = () => {
     const element = document.getElementById("invoice");
@@ -91,13 +89,17 @@ export default function InvoicePage() {
     html2pdf().set(options).from(element).save();
   };
 
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const invoiceNumber = `${year}${month}01`;
+  /*const year = now.getFullYear();
+  const month = String(now.getMonth()).padStart(2, "0");*/
+  const invoiceNumber = `${selectedYear}${selectedMonth}01`;
 
-  const invoiceDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  const dueDate = new Date(now.getFullYear(), now.getMonth() + 1, 15);
+  console.log(selectedMonth, selectedYear);
+
+  const monthNumber = Number(selectedMonth);
+  const newYear = selectedMonth === "12" ? selectedYear + 1 : selectedYear;
+
+  const invoiceDate = new Date(selectedYear, monthNumber, 0); // last day of selected month
+  const dueDate = new Date(newYear, monthNumber, 15); // 15th of next month
 
   const formatDate = (date) =>
     date.toLocaleDateString("fr-FR", {
@@ -110,8 +112,9 @@ export default function InvoicePage() {
   const dueDateStr = formatDate(dueDate);
 
   return (
-    <div className={styles.page}>
-      <div id="invoice">
+    <div className={styles.invoicePage}>
+      <PageHeader headerType="dark" />
+      <div id="invoice" className={styles.invoice}>
         <h1 className={styles.title}>Facture N°{invoiceNumber}</h1>
         <header className={styles.header}>
           <div className={styles.sender}>
@@ -178,12 +181,28 @@ export default function InvoicePage() {
           </tbody>
         </table>
 
-        <div className={styles.totalRow}>
-          <div></div>
-          <div className={styles.totalLabel}>Total HT :</div>
-          <div className={styles.totalValue}>{total.toFixed(2)} €</div>
+        <div className={styles.total}>
+          <p className={styles.totalValue}>Total HT : {total.toFixed(2)} €</p>
+        </div>
+
+        <div className={styles.rib}>
+          <p className={styles.ribTitle}>
+            {userData?.surname?.toUpperCase()} {userData?.name?.toUpperCase()}
+          </p>
+          <p>IBAN : {userData?.iban}</p>
+          <p>BIC : {userData?.bic}</p>
+        </div>
+
+        <div className={styles.legal}>
+          <p>
+            En cas de retard, une pénalité au taux annuel de 5 % sera appliquée,
+            à laquelle s'ajoutera une indemnité forfaitaire pour frais de
+            recouvrementde 40 €
+          </p>
+          <p>TVA non applicable, article 293 B du CGI.</p>
         </div>
       </div>
+
       <div className={styles.buttonContainer}>
         <Button onClick={handleDownload} type="plus">
           Télécharger en PDF
