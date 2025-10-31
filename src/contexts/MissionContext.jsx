@@ -57,25 +57,22 @@ function MissionProvider({ children }) {
     addData(userId, newMission);
   }
 
-  function handleDelete(id) {
+  function handleDelete(id, date) {
     const confirm = window.confirm(
       "Êtes-vous sûr de vouloir supprimer cette mission ?"
     );
+
     if (!confirm) return;
+
+    const dateObj = new Date(date);
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
 
     if (!missions || !userId) return;
     //setMissions((missions) => missions.filter((m) => m.id !== missionId));
 
-    Object.values(missions).forEach((mission) => {
-      const date = new Date(mission.date);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-
+    Object.values(missions[year][month]).forEach((mission) => {
       if (mission.id == id) {
-        console.log(mission);
-        console.log(
-          `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`
-        );
         const missionRef = `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`;
         remove(ref(database, missionRef));
       }
@@ -83,16 +80,19 @@ function MissionProvider({ children }) {
   }
 
   function updateMission(id, updatedM) {
-    /*setMissions((missions) =>
-      missions.map((mission) => (mission.id == id ? updatedM : mission))
-    );*/
-
-    const date = new Date(updatedM.date);
+    /*const date = new Date(updatedM.date);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
+*/
+
+    const dateObj = new Date(updatedM.date);
+
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    console.log("year:", year, "month:", month);
 
     missions &&
-      Object.values(missions).map((mission) => {
+      Object.values(missions[year][month]).forEach((mission) => {
         if (mission.id == id) {
           const missionRef = `/users/${userId}/missions/${year}/${month}/${mission.dbMissionId}`;
           update(ref(database, missionRef), { ...updatedM });

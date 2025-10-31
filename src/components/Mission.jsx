@@ -24,7 +24,7 @@ export default function Mission({ mission }) {
     setMissionType(mission.type);
     setNomAppart(mission.appartement);
     setPrice(mission.prix);
-    setDate(mission.date);
+    setDate(new Date(mission.date));
 
     setEditMissionId(editId);
   }
@@ -41,10 +41,24 @@ export default function Mission({ mission }) {
       appartement: nomAppart,
       prix: Number(price),
       commentaire: "",
-      date,
+      date: date.toISOString(),
     };
 
     console.log(editedMission);
+
+    const originalDate = new Date(mission.date);
+    const originalMonth = originalDate.getMonth();
+    const originalYear = originalDate.getFullYear();
+
+    const newMonth = date.getMonth();
+    const newYear = date.getFullYear();
+
+    if (originalMonth !== newMonth || originalYear !== newYear) {
+      alert(
+        "Vous ne pouvez pas changer le mois d'une mission. Veuillez supprimer cette mission et en créer une autre."
+      );
+      return;
+    }
 
     updateMission(mission.id, editedMission);
     setEditMissionId(null);
@@ -124,7 +138,7 @@ export default function Mission({ mission }) {
             <FontAwesomeIcon
               className={styles.deleteBtn}
               icon={faTrash}
-              onClick={() => handleDelete(mission.id)}
+              onClick={() => handleDelete(mission.id, date)}
             />
           </td>
         </tr>
@@ -145,7 +159,7 @@ export default function Mission({ mission }) {
             <FontAwesomeIcon
               className={styles.deleteBtn}
               icon={faTrash}
-              onClick={() => handleDelete(mission.id)}
+              onClick={() => handleDelete(mission.id, mission.date)}
             />
           </td>
         </tr>

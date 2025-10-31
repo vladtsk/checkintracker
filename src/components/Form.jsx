@@ -108,18 +108,6 @@ export default function Form() {
             <option value="20">20€</option>
             <option value="24">24€</option>
           </datalist>
-
-          {/*<select
-            id="priceSelect"
-            value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
-          >
-            <option value={12}>12€</option>
-            <option value={15}>15€</option>
-            <option value={17}>17€</option>
-            <option value={20}>20€</option>
-            <option value={24}>24€</option>
-          </select>*/}
         </div>
       </div>
 

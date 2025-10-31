@@ -137,7 +137,7 @@ export default function InvoicePage() {
               </p>
               <p>{userData.clientAddress}</p>
               <p>
-                {userData.postcode}, {userData.clientCity}
+                {userData.clientPostCode}, {userData.clientCity}
               </p>
               <p>
                 <b>SIRET</b>: {userData.clientSiret}
