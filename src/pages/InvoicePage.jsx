@@ -96,10 +96,10 @@ export default function InvoicePage() {
   console.log(selectedMonth, selectedYear);
 
   const monthNumber = Number(selectedMonth);
-  const newYear = selectedMonth === "12" ? selectedYear + 1 : selectedYear;
+  //const newYear = selectedMonth === "12" ? selectedYear + 1 : selectedYear;
 
   const invoiceDate = new Date(selectedYear, monthNumber, 0); // last day of selected month
-  const dueDate = new Date(newYear, monthNumber, 15); // 15th of next month
+  const dueDate = new Date(selectedYear, monthNumber, 15); // 15th of next month
 
   const formatDate = (date) =>
     date.toLocaleDateString("fr-FR", {
