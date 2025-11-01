@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { MissionContext } from "../contexts/MissionContext";
 import DatePicker from "react-datepicker";
 
-export default function Mission({ mission }) {
+export default function Mission({ mission, handleClick }) {
   const { handleDelete, editMissionId, setEditMissionId, updateMission } =
     useContext(MissionContext);
 
@@ -44,8 +44,6 @@ export default function Mission({ mission }) {
       date: date.toISOString(),
     };
 
-    console.log(editedMission);
-
     const originalDate = new Date(mission.date);
     const originalMonth = originalDate.getMonth();
     const originalYear = originalDate.getFullYear();
@@ -66,7 +64,8 @@ export default function Mission({ mission }) {
 
   return (
     <>
-      {editMissionId == mission.id ? (
+      {
+        /*editMissionId == mission.id ? (
         <tr className={styles.missionEdit}>
           <td>
             <input
@@ -105,19 +104,6 @@ export default function Mission({ mission }) {
               <option value="20">20€</option>
               <option value="24">24€</option>
             </datalist>
-            {/* 
-            <select
-              id="priceSelect"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-            >
-              <option value={12}>12€</option>
-              <option value={15}>15€</option>
-              <option value={17}>17€</option>
-              <option value={20}>20€</option>
-              <option value={24}>24€</option>
-            </select>
-            */}
           </td>
           <td>
             <DatePicker
@@ -143,12 +129,15 @@ export default function Mission({ mission }) {
           </td>
         </tr>
       ) : (
+        */
         <tr className={styles.mission}>
-          <td>{mission.appartement}</td>
+          <td onClick={handleClick} className={styles.apart}>
+            {mission.appartement}
+          </td>
           <td>{mission.type}</td>
           <td>{mission.prix}</td>
           <td>{new Date(mission.date).toLocaleDateString("fr-FR")}</td>
-          <td>
+          {/*<td>
             <FontAwesomeIcon
               className={styles.editBtn}
               icon={faPenToSquare}
@@ -161,9 +150,9 @@ export default function Mission({ mission }) {
               icon={faTrash}
               onClick={() => handleDelete(mission.id, mission.date)}
             />
-          </td>
+          </td>*/}
         </tr>
-      )}
+      }
     </>
   );
 }

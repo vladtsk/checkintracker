@@ -5,6 +5,7 @@
   min-width: 320px;
 
   background-color: #f9fafb;
+  position: relative;
   /*display: flex;
   flex-direction: column;*/
 }
@@ -106,6 +107,13 @@ table {
 
 .voirPlusDiv {
   margin-top: 10px;
+}
+
+.previous,
+.next {
+  cursor: pointer;
+  color: #003064;
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {

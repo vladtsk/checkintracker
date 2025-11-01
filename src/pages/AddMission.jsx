@@ -9,6 +9,7 @@ import { faMoneyBillTrendUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import MissionPopup from "../components/MissionPopup";
 
 function MissionsSection({
   selectedMonth,
@@ -18,6 +19,14 @@ function MissionsSection({
 }) {
   const { missions } = useContext(MissionContext);
   const [showMore, setShowMore] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedMission, setSelectedMission] = useState(null);
+
+  function handleClick(mission) {
+    console.log("clicked", mission);
+    setSelectedMission(mission);
+    setShowPopup(!showPopup);
+  }
 
   const navigate = useNavigate();
 
@@ -46,8 +55,8 @@ function MissionsSection({
     }
   }
 */
-  const now = new Date();
-  const curYear = now.getFullYear();
+  //const now = new Date();
+  //const curYear = now.getFullYear();
   //const curMonth = String(now.getMonth() + 1).padStart(2, "0");
 
   const monthNames = [
@@ -98,11 +107,14 @@ function MissionsSection({
       </h3>
       <div className={styles.monthNavigation}>
         <div className={styles.previous} onClick={handlePrevMonth}>
-          ← Mois précédent{" "}
+          ← Mois précédent
         </div>
         <div className={styles.next} onClick={handleNextMonth}>
           Mois suivant →
         </div>
+      </div>
+      <div className={styles.popupInfo}>
+        {showPopup && <MissionPopup mission={selectedMission} setShowPopup={setShowPopup} />}
       </div>
       <table>
         <thead>
@@ -117,12 +129,22 @@ function MissionsSection({
         </thead>
         <tbody>
           {missionsToRender ? (
-            missionsToRender.map((m) => <Mission mission={m} key={m.id} />)
+            missionsToRender.map((m) => (
+              <Mission
+                mission={m}
+                key={m.id}
+                handleClick={() => handleClick(m)}
+              />
+            ))
           ) : (
             <tr>
               <td
                 colSpan="6"
-                style={{ textAlign: "center", paddingTop: "20px" }}
+                style={{
+                  textAlign: "center",
+                  paddingTop: "20px",
+                  paddingBottom: "20px",
+                }}
               >
                 Aucune mission ce mois-ci
               </td>

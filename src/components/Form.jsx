@@ -44,6 +44,8 @@ export default function Form() {
     setPrice("12");
     setComment("");
     setDate(new Date());
+
+    setFormopen(!formopen);
   }
 
   return (

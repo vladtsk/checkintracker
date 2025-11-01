@@ -1,0 +1,158 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* dark transparent layer */
+  backdrop-filter: blur(4px); /* adds the blur */
+  z-index: 999; /* sits above everything else */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10%;
+}
+
+.mission {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  width: 340px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.mission p {
+  margin: 6px 0;
+  color: #334155;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.actions .editBtn {
+  color: #003064;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.actions .editBtn:hover {
+  color: #003064;
+}
+
+.actions .deleteBtn {
+  color: #ef4444;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.actions .deleteBtn:hover {
+  color: #b91c1c;
+}
+
+.closeBtn {
+  cursor: pointer;
+  color: #64748b;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: #1e293b;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.formField label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+
+.formField input,
+.formField select,
+.formField textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  font-size: 0.95rem;
+  color: #334155;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.formField input:focus,
+.formField select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  background-color: #fff;
+}
+
+.formActions button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.actions .validateBtn {
+  background-color: #003064;
+  color: white;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.actions .validateBtn:hover {
+  background-color: #1e40af;
+}
+
+.actions .cancelBtn {
+  background-color: #ef4444;
+  color: #f0f0f0;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.actions .cancelBtn:hover {
+  background-color: #b91c1c;
+}
