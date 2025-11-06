@@ -2,12 +2,18 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import PageHeader from "../components/PageHeader";
 import styles from "./Homepage.module.css";
+import Loader from "../components/Loader";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { loading } = useAuth();
+
   return (
     <div className={styles.mainPage}>
       <PageHeader headerType="homepage" />
+      {loading && <Loader />}
+
       <main className={styles.mainSection}>
         <h1>Simplifiez la géstion de vos missions</h1>
         <h2>

@@ -8,6 +8,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import AddMission from "./pages/AddMission";
 import UserInfo from "./pages/UserInfo";
 import InvoicePage from "./pages/InvoicePage";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               }
             ></Route>
             <Route path="login" element={<Login />}></Route>
+            <Route path="/reset-password" element={<ResetPassword />}></Route>
           </Routes>
         </MissionProvider>
       </AuthProvider>

@@ -26,7 +26,7 @@ export default function PageHeader({ headerType }) {
               onClick={logout}
               type={headerType === "homepage" ? "light" : "header"}
             >
-              {"Log out"}
+              {"Se déconnecter"}
             </Button>
             {headerType !== "homepage" && (
               <div
@@ -48,7 +48,7 @@ export default function PageHeader({ headerType }) {
             }}
             type={headerType === "homepage" ? "light" : "header"}
           >
-            {"Log in"}
+            {"Se connecter"}
           </Button>
         )}
       </div>

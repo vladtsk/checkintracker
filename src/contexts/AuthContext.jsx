@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import {
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   auth,
   signOut,
   database,
   ref,
   update,
-  push,
-  remove,
   onValue,
 } from "../../firebase/firebaseConfig";
 
@@ -21,6 +21,7 @@ const initialState = {
   isAuthenticated: false,
   error: null,
   userData: {},
+  loading: false,
 };
 
 function reducer(state, action) {
@@ -32,6 +33,14 @@ function reducer(state, action) {
         isAuthenticated: true,
         error: null,
       };
+    case "signup":
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        error: null,
+      };
+
     case "logout":
       return {
         ...state,
@@ -43,6 +52,11 @@ function reducer(state, action) {
     case "setUserData":
       return { ...state, userData: action.payload };
 
+    case "loading":
+      return { ...state, loading: true, error: null };
+    case "loaded":
+      return { ...state, loading: false };
+
     case "error":
       return { ...state, error: action.payload };
     default:
@@ -51,10 +65,8 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated, error, userData }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ user, isAuthenticated, error, userData, loading }, dispatch] =
+    useReducer(reducer, initialState);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -71,7 +83,6 @@ function AuthProvider({ children }) {
     if (!user || !user.uid) return;
     const dbRef = `/users/${user.uid}/userdata`;
     const unsubscribe = onValue(ref(database, dbRef), (snapshot) => {
-      console.log("userData", snapshot.val());
       dispatch({ type: "setUserData", payload: snapshot.val() });
     });
     return () => unsubscribe();
@@ -80,6 +91,7 @@ function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   function login(email, password) {
+    dispatch({ type: "loading" });
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -109,6 +121,47 @@ function AuthProvider({ children }) {
         }
 
         dispatch({ type: "error", payload: errorMessage });
+      })
+      .finally(() => {
+        dispatch({ type: "loaded" });
+      });
+  }
+
+  function signup(email, password, name) {
+    dispatch({ type: "loading" });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({ type: "signup", payload: user });
+
+        // Adding user data to the Realtime DB
+        const dbRef = `/users/${user.uid}/userdata`;
+        update(ref(database, dbRef), {
+          email: user.email,
+          createdAt: new Date().toISOString(),
+          name,
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        let errorMessage;
+        switch (errorCode) {
+          case "auth/email-already-in-use":
+            errorMessage = "This email is already registered.";
+            break;
+          case "auth/invalid-email":
+            errorMessage = "Please enter a valid email.";
+            break;
+          case "auth/weak-password":
+            errorMessage = "Password should be at least 6 characters.";
+            break;
+          default:
+            errorMessage = "Unable to sign up. Please try again.";
+        }
+        dispatch({ type: "error", payload: errorMessage });
+      })
+      .finally(() => {
+        dispatch({ type: "loaded" });
       });
   }
 
@@ -125,6 +178,10 @@ function AuthProvider({ children }) {
     dispatch({ type: "logout" });
   }
 
+  function resetPassword(email) {
+    return sendPasswordResetEmail(auth, email);
+  }
+
   function addUserDataToDb(data) {
     if (!user) return;
 
@@ -139,10 +196,13 @@ function AuthProvider({ children }) {
         isAuthenticated,
         login,
         logout,
+        resetPassword,
+        signup,
         error,
         dispatch,
         addUserDataToDb,
         userData,
+        loading,
       }}
     >
       {children}

@@ -23,7 +23,7 @@ function MissionsSection({
   const [selectedMission, setSelectedMission] = useState(null);
 
   function handleClick(mission) {
-    console.log("clicked", mission);
+   
     setSelectedMission(mission);
     setShowPopup(!showPopup);
   }
@@ -46,18 +46,6 @@ function MissionsSection({
         : allMissions.reverse().slice(0, 5);
     }
   }
-  /*
-  if (missions && Object.values(missions).length > 0) {
-    if (!showMore) {
-      missionsToRender = Object.values(missions).reverse().slice(0, 5);
-    } else {
-      missionsToRender = Object.values(missions).reverse();
-    }
-  }
-*/
-  //const now = new Date();
-  //const curYear = now.getFullYear();
-  //const curMonth = String(now.getMonth() + 1).padStart(2, "0");
 
   const monthNames = [
     "janvier",
@@ -114,7 +102,9 @@ function MissionsSection({
         </div>
       </div>
       <div className={styles.popupInfo}>
-        {showPopup && <MissionPopup mission={selectedMission} setShowPopup={setShowPopup} />}
+        {showPopup && (
+          <MissionPopup mission={selectedMission} setShowPopup={setShowPopup} />
+        )}
       </div>
       <table>
         <thead>
