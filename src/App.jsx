@@ -9,6 +9,7 @@ import AddMission from "./pages/AddMission";
 import UserInfo from "./pages/UserInfo";
 import InvoicePage from "./pages/InvoicePage";
 import ResetPassword from "./pages/ResetPassword";
+import RecapPage from "./pages/RecapPage";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             ></Route>
             <Route path="login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword />}></Route>
+            <Route path="/recap" element={<RecapPage />}></Route>
           </Routes>
         </MissionProvider>
       </AuthProvider>

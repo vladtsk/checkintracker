@@ -20,7 +20,7 @@ export default function InvoicePage() {
     searchParams.get("month") || new Date().getMonth() + 1
   ).padStart(2, "0");
 
-  const now = new Date();
+  //const now = new Date();
 
   let monthMissions = [];
   if (missions) {
@@ -31,8 +31,6 @@ export default function InvoicePage() {
     }
   }
 
-  console.log("monthMissions: ", monthMissions);
-
   const missions12Count = monthMissions.filter((m) => m.prix === 12).length;
   const missions17Count = monthMissions.filter((m) => m.prix === 17).length;
   const missions20Count = monthMissions.filter((m) => m.prix === 20).length;
@@ -40,7 +38,7 @@ export default function InvoicePage() {
   const autres = monthMissions.filter(
     (m) => m.prix !== 12 && m.prix !== 17 && m.prix !== 20
   );
-  const autreCount = autres.length;
+  //const autreCount = autres.length;
   const autreTotal = autres.reduce((acc, cur) => acc + cur.prix, 0);
 
   const total = monthMissions.reduce((acc, cur) => acc + cur.prix, 0);
@@ -92,8 +90,6 @@ export default function InvoicePage() {
   /*const year = now.getFullYear();
   const month = String(now.getMonth()).padStart(2, "0");*/
   const invoiceNumber = `${selectedYear}${selectedMonth}01`;
-
-  console.log(selectedMonth, selectedYear);
 
   const monthNumber = Number(selectedMonth);
   //const newYear = selectedMonth === "12" ? selectedYear + 1 : selectedYear;
@@ -199,6 +195,7 @@ export default function InvoicePage() {
             à laquelle s'ajoutera une indemnité forfaitaire pour frais de
             recouvrementde 40 €
           </p>
+          <p>Aucun escompte consenti pour paiement anticipé</p>
           <p>TVA non applicable, article 293 B du CGI.</p>
         </div>
       </div>

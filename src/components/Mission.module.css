@@ -23,4 +23,16 @@ th {
 
 .apart {
   cursor: pointer;
+  max-width: 60px;
+}
+
+.comment {
+  max-width: 150px;
+  white-space: pre-wrap; /* keeps line breaks and wraps long text */
+  word-wrap: break-word; /* breaks long words if necessary */
+  overflow-wrap: break-word;
+}
+
+.mission td {
+  vertical-align: top;
 }

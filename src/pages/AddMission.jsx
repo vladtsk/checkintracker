@@ -23,7 +23,6 @@ function MissionsSection({
   const [selectedMission, setSelectedMission] = useState(null);
 
   function handleClick(mission) {
-   
     setSelectedMission(mission);
     setShowPopup(!showPopup);
   }
@@ -113,8 +112,7 @@ function MissionsSection({
             <th>Type</th>
             <th>Prix</th>
             <th>Date</th>
-            <th></th>
-            <th></th>
+            <th>Commentaire</th>
           </tr>
         </thead>
         <tbody>
@@ -157,6 +155,18 @@ function MissionsSection({
           }
         >
           Facture
+        </Button>
+        <Button
+          type="plus"
+          onClick={() =>
+            navigate(
+              `/recap?year=${selectedYear}&month=${String(
+                selectedMonth
+              ).padStart(2, "0")}`
+            )
+          }
+        >
+          Récapitulatif PDF
         </Button>
       </div>
     </div>

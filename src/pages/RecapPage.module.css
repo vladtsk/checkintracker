@@ -1,0 +1,120 @@
+.page {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 320px;
+
+  background-color: #f9fafb;
+  position: relative;
+  /*display: flex;
+  flex-direction: column;*/
+}
+
+.mainContainer {
+  height: 100%;
+  width: 100%;
+  padding: 2.5rem;
+
+  /* padding-bottom: 20px;*/
+}
+
+.assignmentsSection {
+  width: 100%;
+  max-width: 650px;
+  margin-inline: auto;
+}
+
+.recapContainer {
+  /*width: 60%;*/
+  margin-inline: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+
+  page-break-inside: auto;
+  overflow: visible;
+}
+
+.tableWrapper {
+  width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 20px;
+  border-radius: 6px;
+}
+
+.recapContainer {
+  padding: 20px;
+}
+
+.recapContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.recapContainer th,
+.recapContainer td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.recapContainer th {
+  background-color: #f2f2f2;
+}
+
+.recapContainer th,
+.recapContainer td {
+  padding: 6px 4px;
+  font-size: 0.8rem;
+  /*word-break: break-word;*/
+}
+
+.recapContainer th {
+  white-space: nowrap;
+}
+
+.buttonDiv {
+  width: 650px;
+  margin-top: 20px;
+  /*margin: 20px auto 20px auto;*/
+  align-items: left;
+}
+
+/*
+.recapContainer table {
+  page-break-inside: avoid !important;
+}
+
+.recapContainer tr {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+*/
+
+@media (max-width: 600px) {
+  .formContainer,
+  .buttonDiv,
+  .recapContainer {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .mainContainer {
+    padding: 0.5rem;
+  }
+
+  .recapContainer table {
+    font-size: 0.8rem;
+    min-width: 350px;
+  }
+
+  .recapContainer {
+    padding: 5px;
+  }
+  .tableWrapper {
+    width: 100%;
+    margin: 0;
+  }
+}
