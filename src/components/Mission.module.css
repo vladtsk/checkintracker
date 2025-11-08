@@ -35,12 +35,13 @@ th {
 
 .mission td {
   vertical-align: top;
+  border-bottom: 0.5px solid #ddd;
 }
 
 @media (max-width: 600px) {
   .mission td,
   .mission th {
-    font-size: 0.75rem;
+    /*font-size: 0.8rem;*/
     padding-block: 4px;
   }
 }

@@ -105,6 +105,10 @@ table {
   margin-inline: auto;
 }
 
+.missionsTable th {
+  border-bottom: 0.5px solid #ddd;
+}
+
 .voirPlusDiv {
   margin-top: 20px;
   display: flex;

@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { MissionContext } from "../contexts/MissionContext";
 import DatePicker from "react-datepicker";
 
-export default function Mission({ mission, handleClick }) {
+export default function Mission({ mission, handleClick, type }) {
   /*  const { setEditMissionId, updateMission } = useContext(MissionContext);
 
   const [missionType, setMissionType] = useState("accueil");
@@ -64,7 +64,9 @@ export default function Mission({ mission, handleClick }) {
       <td>{mission.type}</td>
       <td>{mission.prix}</td>
       <td>{new Date(mission.date).toLocaleDateString("fr-FR")}</td>
-      <td className={styles.comment}>{mission.commentaire}</td>
+      {type === "recap" && (
+        <td className={styles.comment}>{mission.commentaire}</td>
+      )}
     </tr>
   );
 }

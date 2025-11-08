@@ -105,14 +105,14 @@ function MissionsSection({
           <MissionPopup mission={selectedMission} setShowPopup={setShowPopup} />
         )}
       </div>
-      <table>
+      <table className={styles.missionsTable}>
         <thead>
           <tr>
             <th>Appartement</th>
             <th>Type</th>
             <th>Prix</th>
             <th>Date</th>
-            <th>Commentaire</th>
+            {/*<th>Commentaire</th>*/}
           </tr>
         </thead>
         <tbody>
@@ -127,7 +127,7 @@ function MissionsSection({
           ) : (
             <tr>
               <td
-                colSpan="6"
+                colSpan="4"
                 style={{
                   textAlign: "center",
                   paddingTop: "20px",

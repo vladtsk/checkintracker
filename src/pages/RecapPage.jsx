@@ -89,7 +89,9 @@ export default function RecapPage() {
                 </thead>
                 <tbody>
                   {monthMissions ? (
-                    monthMissions.map((m) => <Mission mission={m} key={m.id} />)
+                    monthMissions.map((m) => (
+                      <Mission mission={m} key={m.id} type="recap" />
+                    ))
                   ) : (
                     <tr>
                       <td
