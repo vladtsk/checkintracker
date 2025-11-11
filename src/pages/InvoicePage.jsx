@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import { useAuth } from "../contexts/AuthContext";
 import { MissionContext } from "../contexts/MissionContext";
 import PageHeader from "../components/PageHeader";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function InvoicePage() {
   const { userData } = useAuth();
@@ -21,6 +21,7 @@ export default function InvoicePage() {
   ).padStart(2, "0");
 
   //const now = new Date();
+  const navigate = useNavigate();
 
   let monthMissions = [];
   if (missions) {
@@ -110,101 +111,133 @@ export default function InvoicePage() {
   return (
     <div className={styles.invoicePage}>
       <PageHeader headerType="dark" />
-      <div id="invoice" className={styles.invoice}>
-        <h1 className={styles.title}>Facture N°{invoiceNumber}</h1>
-        <header className={styles.header}>
-          <div className={styles.sender}>
-            <p className={styles.companyName}>
-              {userData.surname} {userData.name}
-            </p>
-            <p>{userData.address}</p>
-            <p>
-              {userData.postcode}, {userData.city}
-            </p>
-            <p>
-              <b>SIRET</b>: {userData.siret}
-            </p>
-          </div>
+      {userData.surname &&
+      userData.name &&
+      userData.address &&
+      userData.postcode &&
+      userData.city &&
+      userData.siret &&
+      userData.clientName &&
+      userData.clientAddress &&
+      userData.clientPostCode &&
+      userData.clientCity &&
+      userData.clientSiret ? (
+        <>
+          <div id="invoice" className={styles.invoice}>
+            <h1 className={styles.title}>Facture N°{invoiceNumber}</h1>
+            <header className={styles.header}>
+              <div className={styles.sender}>
+                <p className={styles.companyName}>
+                  {userData.surname} {userData.name}
+                </p>
+                <p>{userData.address}</p>
+                <p>
+                  {userData.postcode}, {userData.city}
+                </p>
+                <p>
+                  <b>SIRET</b>: {userData.siret}
+                </p>
+              </div>
 
-          <div className={styles.clientSection}>
-            <div className={styles.client}>
-              <p className={styles.clientName}>
-                <strong>{userData.clientName}</strong>
-              </p>
-              <p>{userData.clientAddress}</p>
-              <p>
-                {userData.clientPostCode}, {userData.clientCity}
-              </p>
-              <p>
-                <b>SIRET</b>: {userData.clientSiret}
+              <div className={styles.clientSection}>
+                <div className={styles.client}>
+                  <p className={styles.clientName}>
+                    <strong>{userData.clientName}</strong>
+                  </p>
+                  <p>{userData.clientAddress}</p>
+                  <p>
+                    {userData.clientPostCode}, {userData.clientCity}
+                  </p>
+                  <p>
+                    <b>SIRET</b>: {userData.clientSiret}
+                  </p>
+                </div>
+              </div>
+            </header>
+            <section className={styles.section}>
+              <div>
+                <div className={styles.dateRow}>
+                  <span className={styles.dateLabel}>Date de facture</span>
+                  <span className={styles.dateValue}>{invoiceDateStr}</span>
+                </div>
+                <div className={styles.dateRow}>
+                  <span className={styles.dateLabel}>Echéance de paiement</span>
+                  <span className={styles.dateValue}>{dueDateStr}</span>
+                </div>
+              </div>
+            </section>
+
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th className={styles.colDesc}>Description</th>
+                  <th className={styles.colQty}>Quantité</th>
+                  <th className={styles.colUnit}>Prix unitaire HT</th>
+                  <th className={styles.colTotal}>Prix total HT</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((it, i) => (
+                  <tr key={i}>
+                    <td className={styles.colDesc}>{it.description}</td>
+                    <td className={styles.colQty}>{it.quantity}</td>
+                    <td className={styles.colUnit}>
+                      {it.unitPrice.toFixed(2)} €
+                    </td>
+                    <td className={styles.colTotal}>
+                      {(it.quantity * it.unitPrice).toFixed(2)} €
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className={styles.total}>
+              <p className={styles.totalValue}>
+                Total HT : {total.toFixed(2)} €
               </p>
             </div>
+
+            {userData?.iban && userData?.bic && (
+              <div className={styles.rib}>
+                <p className={styles.ribTitle}>
+                  {userData?.surname?.toUpperCase()}{" "}
+                  {userData?.name?.toUpperCase()}
+                </p>
+                <p>IBAN : {userData?.iban}</p>
+                <p>BIC : {userData?.bic}</p>
+              </div>
+            )}
+
+            <div className={styles.legal}>
+              <p>
+                En cas de retard, une pénalité au taux annuel de 5 % sera
+                appliquée, à laquelle s'ajoutera une indemnité forfaitaire pour
+                frais de recouvrementde 40 €
+              </p>
+              <p>Aucun escompte consenti pour paiement anticipé</p>
+              <p>TVA non applicable, article 293 B du CGI.</p>
+            </div>
           </div>
-        </header>
-        <section className={styles.section}>
+          <div className={styles.buttonContainer}>
+            <Button onClick={handleDownload} type="plus">
+              Télécharger en PDF
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div className={styles.missingData}>
+          <p className={styles.missingDataP}>
+            Certaines données sont manquantes
+          </p>
           <div>
-            <div className={styles.dateRow}>
-              <span className={styles.dateLabel}>Date de facture</span>
-              <span className={styles.dateValue}>{invoiceDateStr}</span>
-            </div>
-            <div className={styles.dateRow}>
-              <span className={styles.dateLabel}>Echéance de paiement</span>
-              <span className={styles.dateValue}>{dueDateStr}</span>
-            </div>
+            <p>Cliquez ici pour compléter votre profil :</p>
+            <Button type="plus" onClick={() => navigate("/user")}>
+              compléter
+            </Button>
           </div>
-        </section>
-
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th className={styles.colDesc}>Description</th>
-              <th className={styles.colQty}>Quantité</th>
-              <th className={styles.colUnit}>Prix unitaire HT</th>
-              <th className={styles.colTotal}>Prix total HT</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((it, i) => (
-              <tr key={i}>
-                <td className={styles.colDesc}>{it.description}</td>
-                <td className={styles.colQty}>{it.quantity}</td>
-                <td className={styles.colUnit}>{it.unitPrice.toFixed(2)} €</td>
-                <td className={styles.colTotal}>
-                  {(it.quantity * it.unitPrice).toFixed(2)} €
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className={styles.total}>
-          <p className={styles.totalValue}>Total HT : {total.toFixed(2)} €</p>
         </div>
-
-        <div className={styles.rib}>
-          <p className={styles.ribTitle}>
-            {userData?.surname?.toUpperCase()} {userData?.name?.toUpperCase()}
-          </p>
-          <p>IBAN : {userData?.iban}</p>
-          <p>BIC : {userData?.bic}</p>
-        </div>
-
-        <div className={styles.legal}>
-          <p>
-            En cas de retard, une pénalité au taux annuel de 5 % sera appliquée,
-            à laquelle s'ajoutera une indemnité forfaitaire pour frais de
-            recouvrementde 40 €
-          </p>
-          <p>Aucun escompte consenti pour paiement anticipé</p>
-          <p>TVA non applicable, article 293 B du CGI.</p>
-        </div>
-      </div>
-
-      <div className={styles.buttonContainer}>
-        <Button onClick={handleDownload} type="plus">
-          Télécharger en PDF
-        </Button>
-      </div>
+      )}
     </div>
   );
 }

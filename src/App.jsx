@@ -10,6 +10,7 @@ import UserInfo from "./pages/UserInfo";
 import InvoicePage from "./pages/InvoicePage";
 import ResetPassword from "./pages/ResetPassword";
 import RecapPage from "./pages/RecapPage";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword />}></Route>
             <Route path="/recap" element={<RecapPage />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
           </Routes>
         </MissionProvider>
       </AuthProvider>

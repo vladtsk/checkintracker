@@ -157,6 +157,18 @@
 
   text-align: right;
 }
+
+.missingData {
+  margin-top: 20px;
+
+  font-weight: 600;
+  text-align: center;
+}
+
+.missingDataP {
+  margin-top: 20px;
+  color: red;
+}
 @media print {
   .page {
     box-shadow: none;

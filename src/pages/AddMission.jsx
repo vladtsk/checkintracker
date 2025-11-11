@@ -30,6 +30,7 @@ function MissionsSection({
   const navigate = useNavigate();
 
   let missionsToRender;
+  let allMissions;
 
   if (missions) {
     // Access missions[selectedYear][selectedMonth]
@@ -39,7 +40,7 @@ function MissionsSection({
       : null;
 
     if (monthData) {
-      const allMissions = Object.values(monthData);
+      allMissions = Object.values(monthData);
       missionsToRender = showMore
         ? allMissions.reverse()
         : allMissions.reverse().slice(0, 5);
@@ -141,33 +142,39 @@ function MissionsSection({
         </tbody>
       </table>
       <div className={styles.voirPlusDiv}>
-        <Button type="plus" onClick={() => setShowMore(!showMore)}>
-          {!showMore ? "Voir plus" : "Voir moins"}
-        </Button>{" "}
-        <Button
-          type="plus"
-          onClick={() =>
-            navigate(
-              `/invoice?year=${selectedYear}&month=${String(
-                selectedMonth
-              ).padStart(2, "0")}`
-            )
-          }
-        >
-          Facture
-        </Button>
-        <Button
-          type="plus"
-          onClick={() =>
-            navigate(
-              `/recap?year=${selectedYear}&month=${String(
-                selectedMonth
-              ).padStart(2, "0")}`
-            )
-          }
-        >
-          Récapitulatif PDF
-        </Button>
+        {allMissions && allMissions.length > 5 && (
+          <Button type="plus" onClick={() => setShowMore(!showMore)}>
+            {!showMore ? "Voir plus" : "Voir moins"}
+          </Button>
+        )}
+        {missionsToRender && (
+          <Button
+            type="plus"
+            onClick={() =>
+              navigate(
+                `/invoice?year=${selectedYear}&month=${String(
+                  selectedMonth
+                ).padStart(2, "0")}`
+              )
+            }
+          >
+            Facture
+          </Button>
+        )}
+        {missionsToRender && (
+          <Button
+            type="plus"
+            onClick={() =>
+              navigate(
+                `/recap?year=${selectedYear}&month=${String(
+                  selectedMonth
+                ).padStart(2, "0")}`
+              )
+            }
+          >
+            Récapitulatif PDF
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -225,27 +225,27 @@ export default function UserInfo() {
             <table>
               <tbody>
                 <tr>
-                  <td>Nom</td>
+                  <td>Nom *</td>
                   <td>{surname} </td>
                 </tr>
                 <tr>
-                  <td>Prénom</td>
+                  <td>Prénom *</td>
                   <td>{name}</td>
                 </tr>
                 <tr>
-                  <td>Adresse</td>
+                  <td>Adresse *</td>
                   <td>{address} </td>
                 </tr>
                 <tr>
-                  <td>Code Postal</td>
+                  <td>Code Postal *</td>
                   <td>{postcode}</td>
                 </tr>
                 <tr>
-                  <td>Ville</td>
+                  <td>Ville *</td>
                   <td>{city}</td>
                 </tr>
                 <tr>
-                  <td>Siret</td>
+                  <td>Siret *</td>
                   <td>{siret}</td>
                 </tr>
                 <tr>
@@ -257,23 +257,23 @@ export default function UserInfo() {
                   <td>{bic}</td>
                 </tr>
                 <tr>
-                  <td>Nom du client</td>
+                  <td>Nom du client *</td>
                   <td>{clientName}</td>
                 </tr>
                 <tr>
-                  <td>Adresse du client</td>
+                  <td>Adresse du client *</td>
                   <td>{clientAddress}</td>
                 </tr>
                 <tr>
-                  <td>Code postal du client</td>
+                  <td>Code postal du client *</td>
                   <td>{clientPostCode}</td>
                 </tr>
                 <tr>
-                  <td>Ville du client</td>
+                  <td>Ville du client *</td>
                   <td>{clientCity}</td>
                 </tr>
                 <tr>
-                  <td>Siret du client</td>
+                  <td>Siret du client *</td>
                   <td>{clientSiret}</td>
                 </tr>
               </tbody>

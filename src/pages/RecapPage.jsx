@@ -88,7 +88,7 @@ export default function RecapPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {monthMissions ? (
+                  {monthMissions.length !== 0 ? (
                     monthMissions.map((m) => (
                       <Mission mission={m} key={m.id} type="recap" />
                     ))
@@ -110,11 +110,13 @@ export default function RecapPage() {
               </table>
             </div>
           </div>
-          <div className={styles.buttonDiv}>
-            <Button type="plus" onClick={() => handleDownload()}>
-              Télécharger
-            </Button>
-          </div>
+          {monthMissions.length !== 0 && (
+            <div className={styles.buttonDiv}>
+              <Button type="plus" onClick={() => handleDownload()}>
+                Télécharger
+              </Button>
+            </div>
+          )}
         </div>
       </main>
     </div>
