@@ -57,10 +57,8 @@ export default function Mission({ mission, handleClick, type }) {
   }*/
 
   return (
-    <tr className={styles.mission}>
-      <td onClick={handleClick} className={styles.apart}>
-        {mission.appartement}
-      </td>
+    <tr className={styles.mission} onClick={handleClick}>
+      <td className={styles.apart}>{mission.appartement}</td>
       <td>{mission.type}</td>
       <td>{mission.prix}</td>
       <td>{new Date(mission.date).toLocaleDateString("fr-FR")}</td>

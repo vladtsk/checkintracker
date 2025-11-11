@@ -22,7 +22,6 @@ th {
 }
 
 .apart {
-  cursor: pointer;
   max-width: 60px;
 }
 
@@ -31,6 +30,10 @@ th {
   white-space: pre-wrap; /* keeps line breaks and wraps long text */
   word-wrap: break-word; /* breaks long words if necessary */
   overflow-wrap: break-word;
+}
+
+.mission {
+  cursor: pointer;
 }
 
 .mission td {
